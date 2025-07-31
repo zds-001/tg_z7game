@@ -1,0 +1,7 @@
+cython
+wheel
+python-telegram-bot[job-queue]
+google-generativeai
+firebase-admin
+aiosqlite
+langdetect
