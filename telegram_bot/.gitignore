@@ -6,3 +6,5 @@ __pycache__/
 .idea/
 .vscode/
 config.py
+# 忽略本地环境变量文件
+.env
