@@ -5,3 +5,4 @@ google-generativeai
 firebase-admin
 aiosqlite
 langdetect
+python-dotenv
