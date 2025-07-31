@@ -1,6 +1,6 @@
 # main.py
-
-import logging
+from dotenv import load_dotenv
+import logging,os
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters
 
 # 导入配置和各个模块
@@ -8,7 +8,9 @@ from telegram_bot import config
 from services import db_service, ai_service
 from handlers import command_handler, message_handler, callback_handler
 from tasks import scheduled_broadcast
-
+load_dotenv()
+google_key = os.getenv("GOOGLE_API_KEY")
+telegram_token = os.getenv("TELEGRAM_BOT_TOKEN")
 # --- 日志记录配置 ---
 logging.basicConfig(
     format="%(asctime)s - %(name)s - %(levelname)s - %(message)s", level=logging.INFO
@@ -28,7 +30,7 @@ async def post_init_setup(application: Application) -> None:
     await db_service.initialize_database()
 
     # 2. 初始化 Gemini 服务 (这是一个同步函数，直接调用即可)
-    if not ai_service.initialize_gemini(config.GEMINI_API_KEY):
+    if not ai_service.initialize_gemini(google_key):
         logger.critical("Gemini 初始化失败，机器人将无法正常工作。")
         # 在实际应用中可能需要更复杂的处理，但对于调试，这足够了
 
@@ -53,7 +55,7 @@ def main() -> None:
     # 使用 post_init hook 来执行异步的设置任务
     application = (
         Application.builder()
-        .token(config.TELEGRAM_BOT_TOKEN)
+        .token(telegram_token)
         .post_init(post_init_setup)
         .build()
     )
