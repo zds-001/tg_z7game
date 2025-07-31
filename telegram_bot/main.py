@@ -4,7 +4,7 @@ import logging
 from telegram.ext import Application, CommandHandler, MessageHandler, CallbackQueryHandler, filters
 
 # 导入配置和各个模块
-import config
+from telegram_bot import config
 from services import db_service, ai_service
 from handlers import command_handler, message_handler, callback_handler
 from tasks import scheduled_broadcast

@@ -4,7 +4,7 @@ import logging
 import aiosqlite
 from typing import List, Dict, Any
 
-import config
+from telegram_bot import config
 
 logger = logging.getLogger(__name__)
 
