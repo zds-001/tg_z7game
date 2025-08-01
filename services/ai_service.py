@@ -2,7 +2,7 @@
 
 import logging
 import json
-from typing import List, Dict, Any
+from typing import Dict
 import google.generativeai as genai
 
 from services.db_service import get_chat_history
@@ -25,31 +25,35 @@ def initialize_gemini(api_key: str):
         return None
 
 
-async def get_user_intent(user_id: int, user_message: str) -> Dict[str, str]:
+async def get_user_intent(user_id: int, user_message: str, language_code: str) -> Dict[str, str]:
     """
-    使用 Gemini API 判断用户意图。
-    意图分为 'small_talk' (闲聊) 和 'service_request' (服务请求)。
+    使用 Gemini API 判断用户意图，并根据指定语言生成回复。
     """
     if not gemini_model:
-        return {"intent": "error", "reply": "AI 服务当前不可用。"}
+        return {"intent": "error", "reply": "AI service is currently unavailable."}
 
     history_list = await get_chat_history(user_id)
     history_str = "\n".join([f"{item.get('role', 'unknown')}: {item.get('text', '')}" for item in history_list])
 
+    # 根据语言选择回复语言的指令
+    reply_language_instruction = "Hindi" if language_code == 'hi' else "English"
+
     prompt = f"""
-    你是一个游戏服务的客服助手。请分析用户最新的消息并判断其意图。
-    对话历史:
+    You are a customer service assistant for a gaming service. Analyze the user's latest message and determine their intent.
+    The user's preferred language is {reply_language_instruction}.
+
+    Conversation History:
     {history_str}
     ---
-    用户最新消息: "{user_message}"
+    User's Latest Message: "{user_message}"
     ---
-    请将用户意图分类为以下两种之一:
-    1. "service_request": 用户明确表示需要服务、想玩游戏、询问如何开始或对服务感兴趣。
-    2. "small_talk": 用户在闲聊、打招呼、问候或讨论与服务无关的话题。
+    Classify the user's intent into one of the following two categories:
+    1. "service_request": The user is clearly asking for the service, wants to play, asks how to start, or is interested in the service.
+    2. "small_talk": The user is engaging in small talk, greeting, or discussing topics unrelated to the service.
 
-    如果意图是 "small_talk"，请生成一句自然、简洁、友好的回复。
+    If the intent is "small_talk", please generate a natural, concise, and friendly reply in {reply_language_instruction}.
 
-    请严格按照以下 JSON 格式返回结果，不要添加任何其他解释:
+    Please return the result strictly in the following JSON format, with no other explanations:
     {{
       "intent": "...",
       "reply": "..."
@@ -57,17 +61,16 @@ async def get_user_intent(user_id: int, user_message: str) -> Dict[str, str]:
     """
     try:
         response = await gemini_model.generate_content_async(prompt)
-        # 清理和解析 Gemini 的返回结果
         cleaned_response = response.text.strip().replace("```json", "").replace("```", "")
         result = json.loads(cleaned_response)
         logger.info(f"Gemini 意图分析结果: {result}")
         return result
     except Exception as e:
-        # 检查是否是配额用尽的错误
         error_str = str(e).lower()
         if "429" in error_str and "quota" in error_str:
             logger.warning(f"Gemini API quota exceeded: {e}")
-            return {"intent": "error", "reply": "抱歉，今天的免费调用次数已用完，请明天再试。"}
+            return {"intent": "error",
+                    "reply": "Sorry, the free call quota for today has been used up. Please try again tomorrow."}
 
         logger.error(f"Gemini API 调用失败: {e}")
-        return {"intent": "error", "reply": "抱歉，我暂时无法理解。请稍后再试。"}
+        return {"intent": "error", "reply": "Sorry, I couldn't understand that. Please try again later."}

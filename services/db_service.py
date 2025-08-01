@@ -12,7 +12,7 @@ DB_FILE = config.DATABASE_FILE
 
 
 async def initialize_database():
-    """初始化数据库，创建必要的表。"""
+    """初始化数据库，创建并检查所有必要的表和列。"""
     async with aiosqlite.connect(DB_FILE) as db:
         await db.execute("""
                          CREATE TABLE IF NOT EXISTS users
@@ -37,9 +37,30 @@ async def initialize_database():
                              subscribed_to_broadcast
                              BOOLEAN
                              DEFAULT
-                             1
+                             1,
+                             push_message_count
+                             INTEGER
+                             DEFAULT
+                             0
                          )
                          """)
+
+        cursor = await db.execute("PRAGMA table_info(users)")
+        columns = [row[1] for row in await cursor.fetchall()]
+
+        if 'service_status' not in columns:
+            await db.execute("ALTER TABLE users ADD COLUMN service_status TEXT DEFAULT 'pending'")
+            logger.info("已向 users 表中添加 service_status 列。")
+
+        if 'push_message_count' not in columns:
+            await db.execute("ALTER TABLE users ADD COLUMN push_message_count INTEGER DEFAULT 0")
+            logger.info("已向 users 表中添加 push_message_count 列。")
+
+        # 检查并添加 language_code 列
+        if 'language_code' not in columns:
+            await db.execute("ALTER TABLE users ADD COLUMN language_code TEXT DEFAULT 'en'")
+            logger.info("已向 users 表中添加 language_code 列。")
+
         await db.execute("""
                          CREATE TABLE IF NOT EXISTS chat_history
                          (
@@ -68,8 +89,9 @@ async def initialize_database():
                          )
                              )
                          """)
+
         await db.commit()
-    logger.info(f"数据库 '{DB_FILE}' 初始化成功。")
+    logger.info(f"数据库 '{DB_FILE}' 初始化成功并完成结构检查。")
 
 
 async def get_user_data(user_id: int) -> Dict[str, Any]:
@@ -84,7 +106,6 @@ async def get_user_data(user_id: int) -> Dict[str, Any]:
 async def update_user_data(user_id: int, data: Dict[str, Any]):
     """使用 INSERT OR REPLACE 更新或创建用户数据"""
     data['user_id'] = user_id
-
     current_data = await get_user_data(user_id)
     final_data = {**current_data, **data}
 
@@ -116,12 +137,25 @@ async def save_chat_message(user_id: int, role: str, text: str):
 
 
 async def get_subscribed_users() -> List[Dict[str, Any]]:
-    """获取所有订阅了广播的用户信息 (user_id 和 chat_id)"""
+    """获取所有未达到推送上限且已确认服务的用户信息"""
     async with aiosqlite.connect(DB_FILE) as db:
         db.row_factory = aiosqlite.Row
-        # 确保这里查询了 user_id 和 chat_id 两列
-        sql = "SELECT user_id, chat_id FROM users WHERE subscribed_to_broadcast = 1 AND chat_id IS NOT NULL"
-        async with db.execute(sql) as cursor:
+        sql = """
+              SELECT user_id, chat_id, language_code \
+              FROM users
+              WHERE service_status = 'confirmed'
+                AND subscribed_to_broadcast = 1
+                AND chat_id IS NOT NULL
+                AND push_message_count < ? \
+              """
+        async with db.execute(sql, (config.MAX_PUSH_MESSAGES,)) as cursor:
             rows = await cursor.fetchall()
-            # 返回字典列表
             return [dict(row) for row in rows]
+
+
+async def increment_push_count(user_id: int):
+    """为指定用户增加一次推送计数"""
+    async with aiosqlite.connect(DB_FILE) as db:
+        sql = "UPDATE users SET push_message_count = push_message_count + 1 WHERE user_id = ?"
+        await db.execute(sql, (user_id,))
+        await db.commit()

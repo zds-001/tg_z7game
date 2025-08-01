@@ -20,7 +20,7 @@ DAILY_BROADCAST_COUNT = 30
 # 印度时区，用于定时任务
 TIMEZONE = "Asia/Kolkata"
 
-
+MAX_PUSH_MESSAGES = 90
 
 # config.py
 
