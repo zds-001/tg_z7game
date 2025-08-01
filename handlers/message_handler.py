@@ -5,6 +5,7 @@ from typing import Dict
 from telegram import Update
 from telegram.ext import ContextTypes
 from telegram_bot import config
+
 from utils.language_detector import detect_language
 from services.ai_service import get_user_intent
 from services.db_service import get_user_data, update_user_data, save_chat_message
@@ -47,8 +48,8 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             await save_chat_message(user_id, "bot", reply)
             await update_user_data(user_id, {'chat_message_count': chat_count + 1})
         else:
-            limit_reply_en = "Hello, your chat quota for today has been used up. Please come back tomorrow! If you need our service, you can tell me directly."
-            limit_reply_hi = "नमस्ते, आज के लिए आपका चैट कोटा समाप्त हो गया है। कृपया कल फिर आएं! यदि आपको हमारी सेवा की आवश्यकता है, तो आप मुझे सीधे बता सकते हैं।"
+            limit_reply_en = "Hello, your chat quota has been used up. If you need our service, you can tell me directly."
+            limit_reply_hi = "नमस्ते, आपका चैट कोटा समाप्त हो गया है। यदि आपको हमारी सेवा की आवश्यकता है, तो आप मुझे सीधे बता सकते हैं।"
             limit_reply = limit_reply_hi if language_code == 'hi' else limit_reply_en
             await update.message.reply_text(limit_reply)
             await save_chat_message(user_id, "bot", limit_reply)
@@ -60,6 +61,12 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         await send_service_link(update, context)
         await save_chat_message(user_id, "bot", "Service link sent.")
 
-    else:
+    elif intent == "rejection":
+        # --- 新增：处理用户拒绝的逻辑 ---
+        logger.info(f"用户 {user_id} 拒绝了服务。")
+        await update.message.reply_text(reply)  # 回复一句礼貌的结束语，比如 "好的，如果您改变主意，随时可以找我。"
+        await save_chat_message(user_id, "bot", reply)
+
+    else:  # 处理 error 或其他未知情况
         await update.message.reply_text(reply)
         await save_chat_message(user_id, "bot", reply)

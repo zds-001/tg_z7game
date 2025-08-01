@@ -35,7 +35,6 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str) -
     history_list = await get_chat_history(user_id)
     history_str = "\n".join([f"{item.get('role', 'unknown')}: {item.get('text', '')}" for item in history_list])
 
-    # 根据语言选择回复语言的指令
     reply_language_instruction = "Hindi" if language_code == 'hi' else "English"
 
     prompt = f"""
@@ -47,11 +46,12 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str) -
     ---
     User's Latest Message: "{user_message}"
     ---
-    Classify the user's intent into one of the following two categories:
-    1. "service_request": The user is clearly asking for the service, wants to play, asks how to start, or is interested in the service.
-    2. "small_talk": The user is engaging in small talk, greeting, or discussing topics unrelated to the service.
+    Classify the user's intent into one of the following THREE categories:
+    1. "service_request": The user is clearly asking for the service, wants to play, asks how to start, or is interested in the service (e.g., "yes", "ok", "how to play").
+    2. "rejection": The user explicitly states they do not need the service (e.g., "no", "not interested", "don't need it").
+    3. "small_talk": The user is engaging in other small talk, greeting, or discussing topics unrelated to the service.
 
-    If the intent is "small_talk", please generate a natural, concise, and friendly reply in {reply_language_instruction}.
+    If the intent is "small_talk" or "rejection", please generate a natural, concise, and friendly reply in {reply_language_instruction}.
 
     Please return the result strictly in the following JSON format, with no other explanations:
     {{
