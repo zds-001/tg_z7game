@@ -25,7 +25,7 @@ def initialize_gemini(api_key: str):
         return None
 
 
-async def get_user_intent(user_id: int, user_message: str, language_code: str, service_status: str) -> Dict[str, str]:
+async def get_user_intent(user_id: int, user_message: str, language_code: str, current_state: str) -> Dict[str, str]:
     """
     使用 Gemini API 判断用户意图，并根据用户当前状态和语言生成回复。
     """
@@ -38,27 +38,35 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str, s
     if language_code == 'hi':
         reply_language_instruction = "Hindi"
     else:
-        reply_language_instruction = "Hinglish (a casual, friendly mix of Hindi and English commonly spoken in India)"
+        reply_language_instruction = "Hinglish (a casual, friendly mix of Hindi and English)"
 
     prompt = f"""
-    You are a customer service assistant for a gaming service. Analyze the user's latest message and determine their intent based on their current status.
-    The user's preferred language is {reply_language_instruction}. Your tone should be friendly and casual.
+    You are a customer service assistant for a gaming service. Your goal is to guide the user through a conversation flow.
+    The user's preferred language is {reply_language_instruction}.
+    The user's current conversation state is: "{current_state}".
 
     Conversation History:
     {history_str}
     ---
     User's Latest Message: "{user_message}"
     ---
-    **CRITICAL RULE: If the user's service status is already 'confirmed', you MUST classify subsequent simple confirmations like "OK", "thanks", or "got it" as "small_talk", NOT as a new "service_request".**
+    **Conversation Flow Logic:**
+    - If state is 'awaiting_service_confirmation', user is answering "do you need our service?". Intent should be 'service_request' (yes) or 'rejection' (no).
+    - If state is 'awaiting_experience_confirmation', user is answering "have you played before?". Intent should be 'played_before' (yes) or 'new_player' (no).
+    - If state is 'awaiting_registration_confirmation', user is answering "have you registered?". Intent should be 'registration_complete' (e.g., "yes", "I'm done", "finished").
+    - Any other message should be 'small_talk'.
 
-    Classify the user's intent into one of the following THREE categories:
-    1. "service_request": The user is clearly asking for the service for the FIRST time, or is asking again after a long time.
-    2. "rejection": The user explicitly states they do not need the service.
-    3. "small_talk": The user is engaging in other small talk, greeting, or discussing topics unrelated to the service (this includes simple confirmations after the service has been provided).
+    **Classify the user's intent into ONE of the following categories based on the logic above:**
+    1. "service_request": User wants the service.
+    2. "rejection": User does not want the service.
+    3. "played_before": User says they have played before.
+    4. "new_player": User says they are a new player.
+    5. "registration_complete": User confirms they have completed registration.
+    6. "small_talk": Any other message that doesn't fit the current state's expected answer.
 
-    If the intent is "small_talk" or "rejection", please generate a natural, concise, and friendly reply in {reply_language_instruction}. For example, a Hinglish reply could be "OK bhai, no problem!" or "Theek hai, let me know if you need anything else."
+    If the intent is "small_talk" or "rejection", please generate a friendly reply in {reply_language_instruction}.
 
-    Please return the result strictly in the following JSON format, with no other explanations:
+    Please return the result strictly in the following JSON format:
     {{
       "intent": "...",
       "reply": "..."
@@ -68,7 +76,7 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str, s
         response = await gemini_model.generate_content_async(prompt)
         cleaned_response = response.text.strip().replace("```json", "").replace("```", "")
         result = json.loads(cleaned_response)
-        # 我们将日志打印移到 message_handler.py 中
+        logger.info(f"Gemini 意图分析结果 (用户状态: {current_state}): {result}")
         return result
     except Exception as e:
         error_str = str(e).lower()

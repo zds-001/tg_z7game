@@ -4,12 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbb09a64-4f30-43b1-bacd-def10bd21bef" name="更改" comment="更新定时推送，更新语言判断3">
+    <list default="true" id="bbb09a64-4f30-43b1-bacd-def10bd21bef" name="更改" comment="更新定时推送，更新语言判断4">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/command_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/command_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/message_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/message_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/telegram_bot/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/telegram_bot/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/telegram_bot/bot_database.db" beforeDir="false" afterPath="$PROJECT_DIR$/telegram_bot/bot_database.db" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ai_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ai_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/telegram_bot/bot_database.db" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -245,7 +245,7 @@
       <workItem from="1753867405687" duration="1638000" />
       <workItem from="1753869120891" duration="14000" />
       <workItem from="1753869167077" duration="37580000" />
-      <workItem from="1753965043374" duration="13159000" />
+      <workItem from="1753965043374" duration="15469000" />
     </task>
     <task id="LOCAL-00001" summary="ceshi">
       <option name="closed" value="true" />
@@ -319,7 +319,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754039021395</updated>
     </task>
-    <option name="localTasksCounter" value="10" />
+    <task id="LOCAL-00010" summary="更新定时推送，更新语言判断4">
+      <option name="closed" value="true" />
+      <created>1754039948850</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1754039948850</updated>
+    </task>
+    <option name="localTasksCounter" value="11" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -370,7 +378,8 @@
     <MESSAGE value="更新定时推送，更新语言判断" />
     <MESSAGE value="更新定时推送，更新语言判断2" />
     <MESSAGE value="更新定时推送，更新语言判断3" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新定时推送，更新语言判断3" />
+    <MESSAGE value="更新定时推送，更新语言判断4" />
+    <option name="LAST_COMMIT_MESSAGE" value="更新定时推送，更新语言判断4" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/tg_z7game$language_detector.coverage" NAME="language_detector 覆盖结果" MODIFIED="1753875859679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
@@ -378,6 +387,6 @@
     <SUITE FILE_PATH="coverage/tg_z7game$test_db.coverage" NAME="test_db 覆盖结果" MODIFIED="1753947673476" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/services" />
     <SUITE FILE_PATH="coverage/tg_z7game$scheduled_broadcast.coverage" NAME="scheduled_broadcast 覆盖结果" MODIFIED="1753882676171" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tasks" />
     <SUITE FILE_PATH="coverage/tg_z7game$main.coverage" NAME="main 覆盖结果" MODIFIED="1753954539613" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/telegram_bot" />
-    <SUITE FILE_PATH="coverage/tg_z7game$main__1_.coverage" NAME="main (1) 覆盖结果" MODIFIED="1754039644892" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/telegram_bot" />
+    <SUITE FILE_PATH="coverage/tg_z7game$main__1_.coverage" NAME="main (1) 覆盖结果" MODIFIED="1754043373271" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/telegram_bot" />
   </component>
 </project>
