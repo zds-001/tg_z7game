@@ -4,14 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbb09a64-4f30-43b1-bacd-def10bd21bef" name="更改" comment="更新定时推送，更新语言判断5">
-      <change afterPath="$PROJECT_DIR$/handlers/common_replies.py" afterDir="false" />
+    <list default="true" id="bbb09a64-4f30-43b1-bacd-def10bd21bef" name="更改" comment="更改数据库，重新推送">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/command_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/command_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/message_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/message_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/services/db_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/db_service.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/telegram_bot/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/telegram_bot/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/telegram_bot/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/telegram_bot/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/common_replies.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/common_replies.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -247,7 +242,7 @@
       <workItem from="1753867405687" duration="1638000" />
       <workItem from="1753869120891" duration="14000" />
       <workItem from="1753869167077" duration="37580000" />
-      <workItem from="1753965043374" duration="19597000" />
+      <workItem from="1753965043374" duration="20896000" />
     </task>
     <task id="LOCAL-00001" summary="ceshi">
       <option name="closed" value="true" />
@@ -337,7 +332,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754043674710</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="更改数据库，重新推送">
+      <option name="closed" value="true" />
+      <created>1754049837341</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1754049837341</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -390,7 +393,8 @@
     <MESSAGE value="更新定时推送，更新语言判断3" />
     <MESSAGE value="更新定时推送，更新语言判断4" />
     <MESSAGE value="更新定时推送，更新语言判断5" />
-    <option name="LAST_COMMIT_MESSAGE" value="更新定时推送，更新语言判断5" />
+    <MESSAGE value="更改数据库，重新推送" />
+    <option name="LAST_COMMIT_MESSAGE" value="更改数据库，重新推送" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/tg_z7game$language_detector.coverage" NAME="language_detector 覆盖结果" MODIFIED="1753875859679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />
