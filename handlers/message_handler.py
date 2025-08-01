@@ -36,6 +36,12 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
     await save_chat_message(user_id, "user", user_message)
 
     user_data = await get_user_data(user_id)
+
+    chat_count = user_data.get('chat_message_count', 0)
+    if chat_count >= config.MAX_SMALL_TALK_MESSAGES:
+        logger.info(f"用户{user_id}的闲聊次数已达上限，不在回复任何消息")
+
+
     current_state = user_data.get('state', 'started')
     language_code = user_data.get('language_code', 'en')
 
@@ -107,21 +113,26 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             await save_chat_message(user_id, "bot", reply)
             await update_user_data(user_id, {'state': 'completed'})
 
-    else:  # 其他所有状态，统一当作闲聊处理
-        chat_count = user_data.get('chat_message_count', 0)
-        if chat_count < config.MAX_SMALL_TALK_MESSAGES:
-            await update.message.reply_text(reply)
-            await save_chat_message(user_id, "bot", reply)
-            await update_user_data(user_id, {'chat_message_count': chat_count + 1})
-
-            # --- 在闲聊后追加引导 ---
-        if user_data.get('service_status') != 'confirmed':#取消该判断
-            re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
-            await update.message.reply_text(re_engagement_prompt)
-            await save_chat_message(user_id, "bot", re_engagement_prompt)
-
-            await update_user_data(user_id, {'state': 'awaiting_re_engagement'})
-        else:
-            limit_reply = "Your chat quota has been used up. If you need our service, please use /start again."
-            await update.message.reply_text(limit_reply)
-            await save_chat_message(user_id, "bot", limit_reply)
+    # else:  # 其他所有状态，统一当作闲聊处理
+    #     chat_count = user_data.get('chat_message_count', 0)
+    #     if chat_count < config.MAX_SMALL_TALK_MESSAGES:
+    #         await update.message.reply_text(reply)
+    #         await save_chat_message(user_id, "bot", reply)
+    #         await update_user_data(user_id, {'chat_message_count': chat_count + 1})
+    #
+    #             # --- 在闲聊后追加引导 ---
+    #         if user_data.get('service_status') != 'confirmed':#取消该判断
+    #             re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
+    #             await update.message.reply_text(re_engagement_prompt)
+    #             await save_chat_message(user_id, "bot", re_engagement_prompt)
+    #
+    #         await update_user_data(user_id, {'state': 'awaiting_re_engagement'})
+    else:
+        await update.message.reply_text(reply)
+        await save_chat_message(user_id, "bot", reply)
+        await update_user_data(user_id, {'chat_message_count': chat_count + 1})
+        re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
+        #limit_reply = "Your chat quota has been used up. If you need our service, please use /start again."
+        await update.message.reply_text(re_engagement_prompt)
+        await save_chat_message(user_id, "bot", re_engagement_prompt)
+        await update_user_data(user_id, {'state': 'awaiting_registration_confirmation'})
