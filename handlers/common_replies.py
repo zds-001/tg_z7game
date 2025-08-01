@@ -25,7 +25,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     # 教程第一步：注册
     registration_caption = (
         "**Step 1: Registration**\n\n"
-        "https://xz.u7777.net/?dl=dkyay3"
+        "https://xz.u7777.net/?dl=dkyay3\n"
         "1. Click the link in our bio.\n"
         "2. Fill in your details.\n"
         "3. Verify your email."

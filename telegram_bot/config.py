@@ -31,4 +31,3 @@ TIMEZONE = "Asia/Kolkata"
 MAX_PUSH_MESSAGES = 90
 
 # config.py
-
