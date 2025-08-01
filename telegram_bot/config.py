@@ -23,7 +23,7 @@ DB_NAME = os.getenv("DB_NAME") # 您创建的数据库名 (例如 'bot_data')
 MAX_SMALL_TALK_MESSAGES = 30
 
 # 每日定时广播的次数
-DAILY_BROADCAST_COUNT = 30
+DAILY_BROADCAST_COUNT = 1000
 
 # 印度时区，用于定时任务
 TIMEZONE = "Asia/Kolkata"
