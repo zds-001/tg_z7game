@@ -115,7 +115,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             await update_user_data(user_id, {'chat_message_count': chat_count + 1})
 
             # --- 在闲聊后追加引导 ---
-            #if user_data.get('service_status') != 'confirmed':取消该判断
+        if user_data.get('service_status') != 'confirmed':#取消该判断
             re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
             await update.message.reply_text(re_engagement_prompt)
             await save_chat_message(user_id, "bot", re_engagement_prompt)
