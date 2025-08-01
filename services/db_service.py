@@ -167,3 +167,13 @@ async def increment_push_count(user_id: int):
             sql = "UPDATE users SET push_message_count = push_message_count + 1 WHERE user_id = %s"
             await cur.execute(sql, (user_id,))
 
+
+async def close_pool(application):
+    """优雅地关闭数据库连接池"""
+    global pool
+    if pool:
+        logger.info("正在关闭数据库连接池...")
+        pool.close()
+        await pool.wait_closed()
+        pool = None
+        logger.info("数据库连接池已关闭。")

@@ -57,6 +57,7 @@ def main() -> None:
         Application.builder()
         .token(telegram_token)
         .post_init(post_init_setup)
+        .post_stop(db_service.close_pool)
         .build()
     )
 
