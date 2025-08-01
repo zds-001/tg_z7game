@@ -4,11 +4,14 @@ import logging
 from typing import Dict
 from telegram import Update
 from telegram.ext import ContextTypes
+
 from telegram_bot import config
 from utils.language_detector import detect_language
 from services.ai_service import get_user_intent
 from services.db_service import get_user_data, update_user_data, save_chat_message
-from handlers.command_handler import send_service_link, send_registration_guide
+# --- 这是修改后的导入 ---
+# 我们从新的公共模块导入，而不是从 command_handler
+from handlers.common_replies import send_service_link, send_registration_guide
 
 logger = logging.getLogger(__name__)
 
@@ -35,7 +38,6 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
     user_message = update.message.text
     await save_chat_message(user_id, "user", user_message)
 
-    # 1. 获取用户当前状态
     user_data = await get_user_data(user_id)
     current_state = user_data.get('state', 'started')
     language_code = user_data.get('language_code', 'en')
@@ -45,7 +47,6 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         language_code = detected_lang
         await update_user_data(user_id, {'language_code': language_code})
 
-    # --- 新增：如果当前状态是等待用户ID，则跳过AI，直接进行验证 ---
     if current_state == 'awaiting_user_id':
         if user_message.isdigit() and len(user_message) == 9:
             logger.info(f"用户 {user_id} 提供了有效的ID: {user_message}")
@@ -57,14 +58,12 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             logger.warning(f"用户 {user_id} 提供了无效的ID: {user_message}")
             await update.message.reply_text("The ID seems invalid. It must be a 9-digit number. Please try again.")
             await save_chat_message(user_id, "bot", "Invalid ID provided.")
-        return  # 在这里结束处理
+        return
 
-    # 2. 调用AI进行意图识别 (for all other states)
     intent_data = await get_user_intent(user_id, user_message, language_code, current_state)
     intent = intent_data.get("intent")
     reply = intent_data.get("reply")
 
-    # 3. 根据当前状态和用户意图，执行不同操作
     if current_state == 'awaiting_service_confirmation':
         if intent == 'service_request':
             question = "Great! Have you played our game before?"

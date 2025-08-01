@@ -6,3 +6,4 @@ firebase-admin
 aiosqlite
 langdetect
 python-dotenv
+aiomysql
