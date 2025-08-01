@@ -8,3 +8,4 @@ __pycache__/
 config.py
 # 忽略本地环境变量文件
 .env
+.bot_data

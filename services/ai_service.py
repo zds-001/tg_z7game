@@ -25,9 +25,9 @@ def initialize_gemini(api_key: str):
         return None
 
 
-async def get_user_intent(user_id: int, user_message: str, language_code: str) -> Dict[str, str]:
+async def get_user_intent(user_id: int, user_message: str, language_code: str, service_status: str) -> Dict[str, str]:
     """
-    使用 Gemini API 判断用户意图，并根据指定语言生成回复。
+    使用 Gemini API 判断用户意图，并根据用户当前状态和语言生成回复。
     """
     if not gemini_model:
         return {"intent": "error", "reply": "AI service is currently unavailable."}
@@ -38,18 +38,21 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str) -
     reply_language_instruction = "Hindi" if language_code == 'hi' else "English"
 
     prompt = f"""
-    You are a customer service assistant for a gaming service. Analyze the user's latest message and determine their intent.
+    You are a customer service assistant for a gaming service. Analyze the user's latest message and determine their intent based on their current status.
     The user's preferred language is {reply_language_instruction}.
+    The user's current service status is: "{service_status}".
 
     Conversation History:
     {history_str}
     ---
     User's Latest Message: "{user_message}"
     ---
+    **CRITICAL RULE: If the user's service status is already 'confirmed', you MUST classify subsequent simple confirmations like "OK", "thanks", or "got it" as "small_talk", NOT as a new "service_request".**
+
     Classify the user's intent into one of the following THREE categories:
-    1. "service_request": The user is clearly asking for the service, wants to play, asks how to start, or is interested in the service (e.g., "yes", "ok", "how to play").
-    2. "rejection": The user explicitly states they do not need the service (e.g., "no", "not interested", "don't need it").
-    3. "small_talk": The user is engaging in other small talk, greeting, or discussing topics unrelated to the service.
+    1. "service_request": The user is clearly asking for the service for the FIRST time, or is asking again after a long time.
+    2. "rejection": The user explicitly states they do not need the service.
+    3. "small_talk": The user is engaging in other small talk, greeting, or discussing topics unrelated to the service (this includes simple confirmations after the service has been provided).
 
     If the intent is "small_talk" or "rejection", please generate a natural, concise, and friendly reply in {reply_language_instruction}.
 
@@ -63,7 +66,7 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str) -
         response = await gemini_model.generate_content_async(prompt)
         cleaned_response = response.text.strip().replace("```json", "").replace("```", "")
         result = json.loads(cleaned_response)
-        logger.info(f"Gemini 意图分析结果: {result}")
+        logger.info(f"Gemini 意图分析结果 (用户状态: {service_status}): {result}")
         return result
     except Exception as e:
         error_str = str(e).lower()
