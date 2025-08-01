@@ -5,7 +5,7 @@ from typing import Dict
 from telegram import Update
 from telegram.ext import ContextTypes
 
-from telegram_bot import config
+import config
 from utils.language_detector import detect_language
 from services.ai_service import get_user_intent
 from services.db_service import get_user_data, update_user_data, save_chat_message

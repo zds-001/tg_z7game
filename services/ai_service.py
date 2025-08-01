@@ -51,11 +51,10 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str, c
     User's Latest Message: "{user_message}"
     ---
     **Conversation Flow Logic:**
-    - If state is 'awaiting_service_confirmation', user is answering "do you need our service?". Intent should be 'service_request' (yes) or 'rejection' (no).
-    - If state is 'awaiting_experience_confirmation', user is answering "have you played before?". Intent should be 'played_before' (yes) or 'new_player' (no).
-    - If state is 'awaiting_registration_confirmation', user is answering "have you registered?". Intent should be 'registration_complete' (e.g., "yes", "I'm done", "finished").
+    - If state is 'awaiting_service_confirmation', user is answering "do you need our service?". Intent should be 'service_request' or 'rejection'.
+    - If state is 'awaiting_experience_confirmation', user is answering "have you played before?". Intent should be 'played_before' or 'new_player'.
+    - If state is 'awaiting_registration_confirmation', user is answering "have you registered?". Intent should be 'registration_complete'.
     - If state is 'awaiting_re_engagement', user is answering "do you want to try the game?". Intent should be 'service_request' or 'rejection'.
-
     - Any other message should be 'small_talk'.
 
     **Classify the user's intent into ONE of the following categories based on the logic above:**
@@ -64,7 +63,7 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str, c
     3. "played_before": User says they have played before.
     4. "new_player": User says they are a new player.
     5. "registration_complete": User confirms they have completed registration.
-    6. "small_talk": Any other message that doesn't fit the current state's expected answer.
+    6. "small_talk": Any other message.
 
     If the intent is "small_talk" or "rejection", please generate a friendly reply in {reply_language_instruction}.
 
