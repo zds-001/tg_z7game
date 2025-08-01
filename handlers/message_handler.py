@@ -131,8 +131,8 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         await update.message.reply_text(reply)
         await save_chat_message(user_id, "bot", reply)
         await update_user_data(user_id, {'chat_message_count': chat_count + 1})
-        re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
-        #limit_reply = "Your chat quota has been used up. If you need our service, please use /start again."
-        await update.message.reply_text(re_engagement_prompt)
-        await save_chat_message(user_id, "bot", re_engagement_prompt)
+        #re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
+        # #limit_reply = "Your chat quota has been used up. If you need our service, please use /start again."
+        # await update.message.reply_text(re_engagement_prompt)
+        # await save_chat_message(user_id, "bot", re_engagement_prompt)
         await update_user_data(user_id, {'state': 'awaiting_registration_confirmation'})

@@ -110,9 +110,9 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
         'chat_message_count': 0,  # 重置闲聊计数
     })
 
-    welcome_message = "Hi there! We offer an exciting gaming service. Are you interested?"
-    await update.message.reply_text(welcome_message)
-    await save_chat_message(user_id, "bot", welcome_message)
+    # welcome_message = "Hi there! We offer an exciting gaming service. Are you interested?"
+    # await update.message.reply_text(welcome_message)
+    # await save_chat_message(user_id, "bot", welcome_message)
 
 # async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 #
