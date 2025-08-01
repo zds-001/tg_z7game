@@ -37,7 +37,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
     user_data = await get_user_data(user_id)
 
     if user_data and user_data.get('service_status') == 'confirmed':
-        logger.info(f"老用户 {user_id} 已确认服务，直接发送链接。")
+        logger.info(f"老用户 {user_id} 已确认服务，直接发送链接111。")
         await send_service_link(update, context)
         await save_chat_message(user_id, "bot", "您好，这是您需要的服务链接。")
     else:

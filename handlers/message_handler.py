@@ -57,6 +57,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
 
     elif intent == "service_request":
         # --- 这是最终的、更健壮的逻辑 ---
+
         logger.info(f"用户 {user_id} 的服务状态是: {service_status}")
         # 如果用户已经是 'confirmed' 状态，我们就忽略这个服务请求，当作闲聊处理。
         if service_status == 'confirmed':

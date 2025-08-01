@@ -35,12 +35,14 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str, s
     history_list = await get_chat_history(user_id)
     history_str = "\n".join([f"{item.get('role', 'unknown')}: {item.get('text', '')}" for item in history_list])
 
-    reply_language_instruction = "Hindi" if language_code == 'hi' else "English"
+    if language_code == 'hi':
+        reply_language_instruction = "Hindi"
+    else:
+        reply_language_instruction = "Hinglish (a casual, friendly mix of Hindi and English commonly spoken in India)"
 
     prompt = f"""
     You are a customer service assistant for a gaming service. Analyze the user's latest message and determine their intent based on their current status.
-    The user's preferred language is {reply_language_instruction}.
-    The user's current service status is: "{service_status}".
+    The user's preferred language is {reply_language_instruction}. Your tone should be friendly and casual.
 
     Conversation History:
     {history_str}
@@ -54,7 +56,7 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str, s
     2. "rejection": The user explicitly states they do not need the service.
     3. "small_talk": The user is engaging in other small talk, greeting, or discussing topics unrelated to the service (this includes simple confirmations after the service has been provided).
 
-    If the intent is "small_talk" or "rejection", please generate a natural, concise, and friendly reply in {reply_language_instruction}.
+    If the intent is "small_talk" or "rejection", please generate a natural, concise, and friendly reply in {reply_language_instruction}. For example, a Hinglish reply could be "OK bhai, no problem!" or "Theek hai, let me know if you need anything else."
 
     Please return the result strictly in the following JSON format, with no other explanations:
     {{
@@ -66,7 +68,7 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str, s
         response = await gemini_model.generate_content_async(prompt)
         cleaned_response = response.text.strip().replace("```json", "").replace("```", "")
         result = json.loads(cleaned_response)
-        logger.info(f"Gemini 意图分析结果 (用户状态: {service_status}): {result}")
+        # 我们将日志打印移到 message_handler.py 中
         return result
     except Exception as e:
         error_str = str(e).lower()
