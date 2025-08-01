@@ -31,6 +31,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     # 教程第一步：注册
     registration_caption = (
         "**Step 1: Registration**\n\n"
+        "https://xz.u7777.net/?dl=dkyay3"
         "1. Click the link in our bio.\n"
         "2. Fill in your details.\n"
         "3. Verify your email."
@@ -43,7 +44,6 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     # 教程第二步：充值
     recharge_caption = (
         "**Step 2: Recharge**\n\n"
-        "https://xz.u7777.net/?dl=dkyay3"
         "1. Go to the 'Wallet' section.\n"
         "2. Choose your payment method.\n"
         "3. Complete the payment to start playing!"
