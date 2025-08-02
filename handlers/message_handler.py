@@ -201,6 +201,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         await save_chat_message(user_id, "bot", reply)
         # 将用户的闲聊次数加一
         await update_user_data(user_id, {'chat_message_count': chat_count + 1})
+        await update_user_data(user_id, {'state': 'completed'})
 
         # # 定义追加的引导语
         # re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
