@@ -89,7 +89,8 @@ async def get_user_intent(user_id: int, user_message: str, language_code: str, c
     3. "played_before": User says they have played before.
     4. "new_player": User says they are a new player.
     5. "registration_complete": User confirms they have completed registration.
-    6. "small_talk": Any other message.
+    6. "registration_not_complete":  user has not confirmed that the registration has been completed
+    7. "small_talk": Any other message.
 
     If the intent is "small_talk" or "rejection", please generate a friendly reply in {reply_language_instruction}.
 
