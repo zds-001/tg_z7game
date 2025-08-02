@@ -202,11 +202,11 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         # 将用户的闲聊次数加一
         await update_user_data(user_id, {'chat_message_count': chat_count + 1})
 
-        # 定义追加的引导语
-        re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
-        # 发送引导语
-        await update.message.reply_text(re_engagement_prompt)
-        # 保存引导语
-        await save_chat_message(user_id, "bot", re_engagement_prompt)
-        # 将用户的状态更新为“等待再次引导”，以便下次能正确处理用户的回复
-        await update_user_data(user_id, {'state': 'awaiting_registration_confirmation'})
+        # # 定义追加的引导语
+        # re_engagement_prompt = "By the way, our game is really fun. Are you sure you don't want to give it a try?"
+        # # 发送引导语
+        # await update.message.reply_text(re_engagement_prompt)
+        # # 保存引导语
+        # await save_chat_message(user_id, "bot", re_engagement_prompt)
+        # # 将用户的状态更新为“等待再次引导”，以便下次能正确处理用户的回复
+        # await update_user_data(user_id, {'state': 'awaiting_registration_confirmation'})
