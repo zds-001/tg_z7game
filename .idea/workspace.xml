@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="bbb09a64-4f30-43b1-bacd-def10bd21bef" name="更改" comment="闲聊后继续引导游戏114">
+    <list default="true" id="bbb09a64-4f30-43b1-bacd-def10bd21bef" name="更改" comment="闲聊后继续引导游戏115">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/command_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/command_handler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/handlers/message_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/message_handler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +242,7 @@
       <workItem from="1753867405687" duration="1638000" />
       <workItem from="1753869120891" duration="14000" />
       <workItem from="1753869167077" duration="37580000" />
-      <workItem from="1753965043374" duration="45271000" />
+      <workItem from="1753965043374" duration="46200000" />
     </task>
     <task id="LOCAL-00001" summary="ceshi">
       <option name="closed" value="true" />
@@ -541,7 +540,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754127418771</updated>
     </task>
-    <option name="localTasksCounter" value="38" />
+    <task id="LOCAL-00038" summary="闲聊后继续引导游戏115">
+      <option name="closed" value="true" />
+      <created>1754131850360</created>
+      <option name="number" value="00038" />
+      <option name="presentableId" value="LOCAL-00038" />
+      <option name="project" value="LOCAL" />
+      <updated>1754131850360</updated>
+    </task>
+    <option name="localTasksCounter" value="39" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,7 +593,6 @@
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <MESSAGE value="更新定时推送，更新语言判断3" />
     <MESSAGE value="更新定时推送，更新语言判断4" />
     <MESSAGE value="更新定时推送，更新语言判断5" />
     <MESSAGE value="更改数据库，重新推送" />
@@ -611,7 +617,8 @@
     <MESSAGE value="闲聊后继续引导游戏112" />
     <MESSAGE value="闲聊后继续引导游戏113" />
     <MESSAGE value="闲聊后继续引导游戏114" />
-    <option name="LAST_COMMIT_MESSAGE" value="闲聊后继续引导游戏114" />
+    <MESSAGE value="闲聊后继续引导游戏115" />
+    <option name="LAST_COMMIT_MESSAGE" value="闲聊后继续引导游戏115" />
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/tg_z7game$language_detector.coverage" NAME="language_detector 覆盖结果" MODIFIED="1753875859679" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/utils" />

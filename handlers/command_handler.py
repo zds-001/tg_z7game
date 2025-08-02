@@ -2,6 +2,8 @@
 
 # 导入 logging 模块，用于记录程序运行信息
 import logging
+import time
+
 # 从 telegram 库导入 Update, InlineKeyboardButton, InlineKeyboardMarkup 类
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
 from telegram.constants import ChatAction
@@ -53,6 +55,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     # --- 教程第一步：注册 ---
     #先发送一条带链接的文案
     await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+    time.sleep(5)
     registration_link_messgae = (
         "**Step 1: Registration**\n\n"
         "Please use this link to register:\n"
