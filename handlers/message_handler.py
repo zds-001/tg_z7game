@@ -113,6 +113,8 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             # 定义回复内容
             reply_text = "The ID seems invalid. It must be a 9-digit number. Please try again."
             # 回复用户ID无效，让他重试
+            await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+            await asyncio.sleep(3)
             await update.message.reply_text(reply_text)
             # 在数据库里记录这次回复
             await save_chat_message(user_id, "bot", reply_text)
@@ -189,6 +191,8 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         # 如果是其他意图
         else:
             # 就回复AI生成的闲聊内容
+            await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+            await asyncio.sleep(2)
             await update.message.reply_text(reply)
             await save_chat_message(user_id, "bot", reply)
 
