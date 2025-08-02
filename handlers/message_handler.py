@@ -8,7 +8,7 @@ from typing import Dict
 from telegram import Update
 # 从 telegram.ext 库导入 ContextTypes，它包含了上下文信息，比如机器人实例
 from telegram.ext import ContextTypes
-
+from telegram.constants import ChatAction
 # 导入我们自己写的配置文件
 from telegram_bot import config
 # 导入我们自己写的语言检测工具
@@ -55,6 +55,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
 
     # 从 update 对象中获取用户ID
     user_id = update.effective_user.id
+    chat_id = update.effective_chat.id
     # 从 update 对象中获取用户发送的文本消息
     user_message = update.message.text
     # 将用户发送的这条消息保存到数据库
@@ -85,6 +86,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         await update_user_data(user_id, {'language_code': language_code})
 
     # 检查用户当前是否处于“等待输入用户ID”的状态
+    await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
     if current_state == 'awaiting_user_id':
         # 如果是，就判断用户发来的消息是不是9位纯数字
         if user_message.isdigit() and len(user_message) == 9:
@@ -111,7 +113,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             await save_chat_message(user_id, "bot", reply_text)
         # 无论ID是否有效，处理完就直接返回，不再执行下面的AI判断
         return
-
+    await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
     # 对于其他所有状态，调用AI服务来判断用户的意图
     intent_data = await get_user_intent(user_id, user_message, language_code, current_state)
     # 从AI返回的结果中获取意图标签

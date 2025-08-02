@@ -4,6 +4,7 @@
 import logging
 # 从 telegram 库导入 Update, InlineKeyboardButton, InlineKeyboardMarkup 类
 from telegram import Update, InlineKeyboardButton, InlineKeyboardMarkup
+from telegram.constants import ChatAction
 # 从 telegram.ext 库导入 ContextTypes，它包含了上下文信息
 from telegram.ext import ContextTypes
 # 导入我们自己写的 AI 服务，用来判断用户意图
@@ -21,6 +22,8 @@ logger = logging.getLogger(__name__)
 async def send_service_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """一个独立的函数，用于发送服务链接和策略按钮"""
     # 定义包含可点击链接的文本
+    chat_id = update.effective_chat.id
+    await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
     link_text = "发射前30s通知：[点击这里进入游戏](https://www.example.com)"
     # 定义一个包含三个按钮的键盘布局
     keyboard = [
@@ -49,6 +52,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
 
     # --- 教程第一步：注册 ---
     #先发送一条带链接的文案
+    await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
     registration_link_messgae = (
         "**Step 1: Registration**\n\n"
         "Please use this link to register:\n"
@@ -64,6 +68,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
         "3. Verify your email."
     )
     # 定义一张占位图片
+    await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_PHOTO) #正在上传照片
     registration_photo_url = "https://picsum.photos/seed/register/600/400"
     # 发送图片，并将文字说明作为图片的标题
     await context.bot.send_photo(chat_id=chat_id, photo=registration_photo_url, caption=registration_caption,
@@ -78,6 +83,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
         "3. Complete the payment to start playing!"
     )
     # 定义另一张占位图片
+    await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_PHOTO)
     recharge_photo_url = "https://picsum.photos/seed/recharge/600/400"
     # 发送第二张图片和对应的说明
     await context.bot.send_photo(chat_id=chat_id, photo=recharge_photo_url, caption=recharge_caption,
@@ -114,7 +120,7 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
         # 如果是，就打印一条日志
         logger.info(f"已订阅用户 {user_id} 发送 /start，将作为闲聊处理。")
 
-        # 将这次的 /start 当作一条普通的闲聊消息来处理
+        # 将这次的 /start 当作一条普通得闲聊消息来处理
         # 获取用户偏好的语言，默认为英语
         language_code = user_data.get('language_code', 'en')
         # 对于已订阅用户，我们可以假设他们处于一个非引导状态，比如 'completed'
