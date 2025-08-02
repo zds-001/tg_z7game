@@ -25,8 +25,8 @@ async def send_service_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """一个独立的函数，用于发送服务链接和策略按钮"""
     # 定义包含可点击链接的文本
     chat_id = update.effective_chat.id
-    await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
-    await asyncio.sleep(5)
+    # await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+    # await asyncio.sleep(5)
     link_text = "发射前30s通知：[点击这里进入游戏](https://www.example.com)"
     # 定义一个包含三个按钮的键盘布局
     keyboard = [
@@ -76,8 +76,8 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
 
     registration_photo_url = "https://picsum.photos/seed/register/600/400"
     # 发送图片，并将文字说明作为图片的标题
-    await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_PHOTO) #正在上传照片
-    await asyncio.sleep(5)
+    # await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_PHOTO) #正在上传照片
+    # await asyncio.sleep(5)
     await context.bot.send_photo(chat_id=chat_id, photo=registration_photo_url, caption=registration_caption,
                                  parse_mode='Markdown')
 
