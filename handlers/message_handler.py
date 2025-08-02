@@ -127,6 +127,8 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         if intent == 'service_request':
             # 就向用户提问“您以前玩过我们的游戏吗？”
             question = "Great! Have you played our game before?"
+            await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+            await asyncio.sleep(20)
             await update.message.reply_text(question)
             await save_chat_message(user_id, "bot", question)
             # 并将用户的状态更新为“等待确认游戏经验”
@@ -168,6 +170,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         if intent == 'registration_complete':
             # 就向用户提问，索要他的用户ID
             question = "Awesome! Please send me your 9-digit User ID to complete the process."
+
             await update.message.reply_text(question)
             await save_chat_message(user_id, "bot", question)
             # 并将用户的状态更新为“等待输入用户ID”

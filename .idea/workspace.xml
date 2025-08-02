@@ -5,7 +5,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="bbb09a64-4f30-43b1-bacd-def10bd21bef" name="更改" comment="闲聊后继续引导游戏122">
-      <change beforePath="$PROJECT_DIR$/handlers/command_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/command_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/message_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/message_handler.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -242,7 +243,7 @@
       <workItem from="1753869120891" duration="14000" />
       <workItem from="1753869167077" duration="37580000" />
       <workItem from="1753965043374" duration="50973000" />
-      <workItem from="1754138489873" duration="351000" />
+      <workItem from="1754138489873" duration="2141000" />
     </task>
     <task id="LOCAL-00001" summary="ceshi">
       <option name="closed" value="true" />
@@ -612,7 +613,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754138567846</updated>
     </task>
-    <option name="localTasksCounter" value="47" />
+    <task id="LOCAL-00047" summary="闲聊后继续引导游戏122">
+      <option name="closed" value="true" />
+      <created>1754138913985</created>
+      <option name="number" value="00047" />
+      <option name="presentableId" value="LOCAL-00047" />
+      <option name="project" value="LOCAL" />
+      <updated>1754138913985</updated>
+    </task>
+    <option name="localTasksCounter" value="48" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
