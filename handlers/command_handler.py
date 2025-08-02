@@ -142,8 +142,8 @@ async def start_command(update: Update, context: ContextTypes.DEFAULT_TYPE) -> N
         'push_message_count': 0,  # 重置推送计数
         'chat_message_count': 0,  # 重置闲聊计数
     })
-
+    #welcome_message =  "Hi there! We offer an exciting gaming service. Are you interested?"
     # (这部分代码已被注释掉，因为新逻辑是在用户确认后才发送欢迎语)
-    # welcome_message = "Hi there! We offer an exciting gaming service. Are you interested?"
-    # await update.message.reply_text(welcome_message)
-    # await save_chat_message(user_id, "bot", welcome_message)
+    welcome_message = "Hi there! We offer an exciting gaming service. Are you interested?"
+    await update.message.reply_text(welcome_message)
+    await save_chat_message(user_id, "bot", welcome_message)
