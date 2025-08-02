@@ -176,25 +176,26 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             await update.message.reply_text(reply)
             await save_chat_message(user_id, "bot", reply)
 
-
-    else:
-        if intent == 'small_talk':
-            if user_data.get('service_status') == 'confirmed':
-                logger.info(f"已注册用户{user_id}正在闲聊。不予回复")
-
-            chat_count = user_data.get('chat_message_count', 0)
-            if chat_count < config.MAX_SMALL_TALK_MESSAGES:
-                await update.message.reply_text(reply)
-                await save_chat_message(user_id, "bot", reply)
-                await update_user_data(user_id, {'chat_message_count': chat_count+1})
-            else:
-                logger.info(f"用户 {user_id} 已达到终生闲聊上限。")
-        else:
-            await update.message.reply_text(reply)
-            await save_chat_message(user_id, "bot", reply)
-
-                # 确保用户在闲聊后，状态回到一个中立的 'completed' 状态
-        await update_user_data(user_id, {'state': 'completed'})
+    elif current_state == 'completed':
+        logger.info(f"用户 {user_id} 已达到终生闲聊上限。")
+    # else:
+    #     if intent == 'small_talk':
+    #         if user_data.get('service_status') == 'confirmed':
+    #             logger.info(f"已注册用户{user_id}正在闲聊。不予回复")
+    #
+    #         chat_count = user_data.get('chat_message_count', 0)
+    #         if chat_count < config.MAX_SMALL_TALK_MESSAGES:
+    #             await update.message.reply_text(reply)
+    #             await save_chat_message(user_id, "bot", reply)
+    #             await update_user_data(user_id, {'chat_message_count': chat_count+1})
+    #         else:
+    #             logger.info(f"用户 {user_id} 已达到终生闲聊上限。")
+    #     else:
+    #         await update.message.reply_text(reply)
+    #         await save_chat_message(user_id, "bot", reply)
+    #
+    #             # 确保用户在闲聊后，状态回到一个中立的 'completed' 状态
+    #     await update_user_data(user_id, {'state': 'completed'})
 
     # 检查用户当前是否处于“等待再次引导”的状态
     # elif current_state == 'awaiting_re_engagement':
