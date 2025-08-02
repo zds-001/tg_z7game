@@ -44,13 +44,21 @@ async def send_service_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
 async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """发送图文并茂的注册和充值教程"""
     # 获取当前聊天的ID
+    user_id = update.effective_user.id
     chat_id = update.effective_chat.id
 
     # --- 教程第一步：注册 ---
+    #先发送一条带链接的文案
+    registration_link_messgae = (
+        "**Step 1: Registration**\n\n"
+        "Please use this link to register:\n"
+        "https://xz.u7777.net/?dl=dkyay3"
+    )
+    await context.bot.send_message(chat_id=chat_id, text=registration_link_messgae,parse_mode='Markdown')
+    await save_chat_message(user_id, "bot", registration_link_messgae)
     # 定义注册教程的文字说明
     registration_caption = (
         "**Step 1: Registration**\n\n"
-        "https://xz.u7777.net/?dl=dkyay3\n"
         "1. Click the link in our bio.\n"
         "2. Fill in your details.\n"
         "3. Verify your email."

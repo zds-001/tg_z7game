@@ -242,7 +242,7 @@
       <workItem from="1753867405687" duration="1638000" />
       <workItem from="1753869120891" duration="14000" />
       <workItem from="1753869167077" duration="37580000" />
-      <workItem from="1753965043374" duration="36846000" />
+      <workItem from="1753965043374" duration="37690000" />
     </task>
     <task id="LOCAL-00001" summary="ceshi">
       <option name="closed" value="true" />
@@ -468,7 +468,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754119803610</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="闲聊后继续引导游戏6">
+      <option name="closed" value="true" />
+      <created>1754121393925</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1754121393925</updated>
+    </task>
+    <option name="localTasksCounter" value="30" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
