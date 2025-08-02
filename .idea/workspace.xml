@@ -6,8 +6,13 @@
   <component name="ChangeListManager">
     <list default="true" id="bbb09a64-4f30-43b1-bacd-def10bd21bef" name="更改" comment="闲聊后继续引导游戏3">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/callback_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/callback_handler.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/command_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/command_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/handlers/common_replies.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/common_replies.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/handlers/message_handler.py" beforeDir="false" afterPath="$PROJECT_DIR$/handlers/message_handler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/services/ai_service.py" beforeDir="false" afterPath="$PROJECT_DIR$/services/ai_service.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tasks/scheduled_broadcast.py" beforeDir="false" afterPath="$PROJECT_DIR$/tasks/scheduled_broadcast.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/telegram_bot/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/telegram_bot/main.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -243,7 +248,7 @@
       <workItem from="1753867405687" duration="1638000" />
       <workItem from="1753869120891" duration="14000" />
       <workItem from="1753869167077" duration="37580000" />
-      <workItem from="1753965043374" duration="31708000" />
+      <workItem from="1753965043374" duration="34389000" />
     </task>
     <task id="LOCAL-00001" summary="ceshi">
       <option name="closed" value="true" />
@@ -445,7 +450,15 @@
       <option name="project" value="LOCAL" />
       <updated>1754063430092</updated>
     </task>
-    <option name="localTasksCounter" value="26" />
+    <task id="LOCAL-00026" summary="闲聊后继续引导游戏3">
+      <option name="closed" value="true" />
+      <created>1754063913796</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1754063913798</updated>
+    </task>
+    <option name="localTasksCounter" value="27" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
