@@ -1,5 +1,5 @@
 # handlers/command_handler.py
-
+import asyncio
 # 导入 logging 模块，用于记录程序运行信息
 import logging
 import time
@@ -55,7 +55,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     # --- 教程第一步：注册 ---
     #先发送一条带链接的文案
     await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
-    time.sleep(5)
+    await asyncio.sleep(5)
     registration_link_messgae = (
         "**Step 1: Registration**\n\n"
         "Please use this link to register:\n"
@@ -72,7 +72,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     )
     # 定义一张占位图片
     await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_PHOTO) #正在上传照片
-    time.sleep(5)
+    await asyncio.sleep(5)
     registration_photo_url = "https://picsum.photos/seed/register/600/400"
     # 发送图片，并将文字说明作为图片的标题
     await context.bot.send_photo(chat_id=chat_id, photo=registration_photo_url, caption=registration_caption,
@@ -88,7 +88,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     )
     # 定义另一张占位图片
     await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_PHOTO)
-    time.sleep(5)
+    await asyncio.sleep(5)
     recharge_photo_url = "https://picsum.photos/seed/recharge/600/400"
     # 发送第二张图片和对应的说明
     await context.bot.send_photo(chat_id=chat_id, photo=recharge_photo_url, caption=recharge_caption,

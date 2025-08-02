@@ -1,5 +1,5 @@
 # handlers/message_handler.py
-
+import asyncio
 # 导入 logging 模块，用于记录程序运行信息
 import logging
 # 从 typing 模块导入 Dict 类型，用于类型提示，让代码更规范
@@ -87,6 +87,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
 
     # 检查用户当前是否处于“等待输入用户ID”的状态
     await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+    await asyncio.sleep(2)
     if current_state == 'awaiting_user_id':
         # 如果是，就判断用户发来的消息是不是9位纯数字
         if user_message.isdigit() and len(user_message) == 9:
@@ -114,6 +115,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         # 无论ID是否有效，处理完就直接返回，不再执行下面的AI判断
         return
     await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+    await asyncio.sleep(2)
     # 对于其他所有状态，调用AI服务来判断用户的意图
     intent_data = await get_user_intent(user_id, user_message, language_code, current_state)
     # 从AI返回的结果中获取意图标签
