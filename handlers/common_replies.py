@@ -10,14 +10,6 @@ async def send_service_link(update: Update, context: ContextTypes.DEFAULT_TYPE):
     """一个独立的函数，用于发送服务链接和策略按钮"""
     user_id = update.effective_user.id
     chat_id = update.effective_chat.id
-    registration_link_message = (
-      "**Step 1: Registration**\n\n"
-        "Please use this link to register:\n"
-        "https://xz.u7777.net/?dl=dkyay3"
-
-    )
-    await context.bot.send_message(chat_id, registration_link_message,parse_mode="Markdown")
-    await save_chat_message(user_id, "bot", registration_link_message)
 
     link_text = "发射前30s通知：[点击这里进入游戏](https://www.example.com)"
     await context.bot.send_message(chat_id=chat_id, text=link_text, parse_mode='Markdown')
@@ -38,7 +30,13 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     """发送图文并茂的注册和充值教程"""
     user_id = update.effective_user.id
     chat_id = update.effective_chat.id
-
+    registration_link_message = (
+      "**Step 1: Registration**\n\n"
+        "Please use this link to register:\n"
+        "https://xz.u7777.net/?dl=dkyay3"
+)
+    await context.bot.send_message(chat_id, registration_link_message,parse_mode="Markdown")
+    await save_chat_message(user_id, "bot", registration_link_message)
     registration_caption = (
         "**Step 1: Registration**\n\n"
         "1. Click the link in our bio.\n"
