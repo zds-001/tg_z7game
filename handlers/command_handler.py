@@ -57,6 +57,7 @@ async def send_registration_guide(update: Update, context: ContextTypes.DEFAULT_
     #先发送一条带链接的文案
     # await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_PHOTO) #正在上传照片
     # await asyncio.sleep(5)
+
     registration_link_messgae = (
         "**Step 1: Registration**\n\n"
         "Please use this link to register:\n"
