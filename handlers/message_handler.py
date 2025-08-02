@@ -41,6 +41,8 @@ async def registration_reminder(context: ContextTypes.DEFAULT_TYPE):
         # 如果是，就发送一条提醒消息
         reminder_message = "Hi! Have you completed the registration? Let me know if you are ready."
         # 使用机器人实例发送消息
+        await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+        await asyncio.sleep(3)
         await context.bot.send_message(chat_id=chat_id, text=reminder_message)
         # 将这条提醒消息也保存到数据库的聊天记录中
         await save_chat_message(user_id, "bot", reminder_message)
@@ -96,6 +98,8 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             # 定义回复内容
             reply_text = "Thank you! Your registration is successful."
             # 回复用户注册成功
+            await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+            await asyncio.sleep(3)
             await update.message.reply_text(reply_text)
             # 在数据库里记录这次回复
             await save_chat_message(user_id, "bot", reply_text)
@@ -128,7 +132,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             # 就向用户提问“您以前玩过我们的游戏吗？”
             question = "Great! Have you played our game before?"
             await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
-            await asyncio.sleep(20)
+            await asyncio.sleep(3)
             await update.message.reply_text(question)
             await save_chat_message(user_id, "bot", question)
             # 并将用户的状态更新为“等待确认游戏经验”
@@ -144,12 +148,16 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         # 如果用户的意图是“玩过”
         if intent == 'played_before':
             # 就直接发送游戏链接和策略按钮
+            await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+            await asyncio.sleep(3)
             await send_service_link(update, context)
             # 并将用户的状态更新为“已完成”，会员状态设为“已确认”
             await update_user_data(user_id, {'state': 'completed', 'service_status': 'confirmed'})
         # 如果用户的意图是“没玩过”（新玩家）
         elif intent == 'new_player':
             # 就发送注册和充值教程
+            await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.UPLOAD_PHOTO)
+            await asyncio.sleep(3)
             await send_registration_guide(update, context)
             # 并将用户的状态更新为“等待注册确认”
             await update_user_data(user_id, {'state': 'awaiting_registration_confirmation'})
@@ -161,6 +169,8 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         # 如果是其他意图
         else:
             # 就回复AI生成的闲聊内容
+            await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+            await asyncio.sleep(3)
             await update.message.reply_text(reply)
             await save_chat_message(user_id, "bot", reply)
 
@@ -170,7 +180,8 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
         if intent == 'registration_complete':
             # 就向用户提问，索要他的用户ID
             question = "Awesome! Please send me your 9-digit User ID to complete the process."
-
+            await context.bot.send_chat_action(chat_id=chat_id, action=ChatAction.TYPING)
+            await asyncio.sleep(2)
             await update.message.reply_text(question)
             await save_chat_message(user_id, "bot", question)
             # 并将用户的状态更新为“等待输入用户ID”
