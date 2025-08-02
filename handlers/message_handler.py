@@ -177,7 +177,7 @@ async def text_message_handler(update: Update, context: ContextTypes.DEFAULT_TYP
             await save_chat_message(user_id, "bot", reply)
 
     elif current_state == 'completed':
-        logger.info(f"用户 {user_id} 已达到终生闲聊上限。")
+        logger.info(f"已注册用户{user_id}正在闲聊。不予回复")
     # else:
     #     if intent == 'small_talk':
     #         if user_data.get('service_status') == 'confirmed':
